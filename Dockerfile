@@ -15,6 +15,9 @@ RUN yum -y install gcc \
     && ./mvnw clean \
     && ./mvnw package -Pnative \
     && ls -la \
+    && ls -la target \
+    && mv target/code-with-quarkus-1.0.0-SNAPSHOT-runner application \
+    && ls -la \
     && ls -la target
 
 RUN ls -la
@@ -24,7 +27,7 @@ RUN ls -la target
 #    && chmod "g+rwX" /work \
 #    && chown 1001:root /work
 
-COPY /work/target/code-with-quarkus-1.0.0-SNAPSHOT-runner /work/application
+#COPY /work/target/code-with-quarkus-1.0.0-SNAPSHOT-runner /work/application
 
 EXPOSE $PORT
 
