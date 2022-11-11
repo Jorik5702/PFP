@@ -13,7 +13,12 @@ RUN yum -y install gcc \
     && export JAVA_HOME=/work/graalvm-ce-java17-22.3.0 \
     && gu install native-image \
     && ./mvnw clean \
-    && ./mvnw package -Pnative
+    && ./mvnw package -Pnative \
+    && ls -la \
+    && ls -la target
+
+RUN ls -la
+RUN ls -la target
 
 #RUN chown 1001 /work \
 #    && chmod "g+rwX" /work \
