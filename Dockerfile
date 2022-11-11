@@ -14,14 +14,7 @@ RUN yum -y install gcc \
     && gu install native-image \
     && ./mvnw clean \
     && ./mvnw package -Pnative \
-    && ls -la \
-    && ls -la target \
-    && mv target/code-with-quarkus-1.0.0-SNAPSHOT-runner application \
-    && ls -la \
-    && ls -la target
-
-RUN ls -la
-RUN ls -la target
+    && mv target/code-with-quarkus-1.0.0-SNAPSHOT-runner application
 
 #RUN chown 1001 /work \
 #    && chmod "g+rwX" /work \
