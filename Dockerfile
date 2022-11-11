@@ -24,7 +24,7 @@ RUN ls -la target
 #    && chmod "g+rwX" /work \
 #    && chown 1001:root /work
 
-COPY target/*-runner /work/application
+COPY target/code-with-quarkus-1.0.0-SNAPSHOT-runner /work/application
 
 EXPOSE $PORT
 
