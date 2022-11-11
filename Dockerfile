@@ -14,6 +14,7 @@ RUN yum -y install gcc \
     && gu install native-image \
     && ./mvnw clean \
     && ./mvnw package -Pnative \
+    && ls -l target \
     && mv target/pfp-1.0.0-runner application
 
 #RUN chown 1001 /work \
