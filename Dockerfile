@@ -1,24 +1,39 @@
-# Use the offical Golang image to create a build artifact.
-# This is based on Debian and sets the GOPATH to /go.
-# https://hub.docker.com/_/golang
-FROM golang:1.12 as builder
-
-# Copy local code to the container image.
-WORKDIR /app
+####
+# This Dockerfile is used in order to build a container that runs the Quarkus application in native (no JVM) mode.
+#
+# Before building the container image run:
+#
+# ./mvnw package -Pnative
+#
+# Then, build the image with:
+#
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/code-with-quarkus .
+#
+# Then run the container using:
+#
+# docker run -i --rm -p 8080:8080 quarkus/code-with-quarkus
+#
+###
+FROM registry.access.redhat.com/ubi8/ubi:8.6
+WORKDIR /work/
 COPY . .
 
-# Build the command inside the container.
-RUN CGO_ENABLED=0 GOOS=linux go build -v -o helloworld
+RUN yum -y install gcc \
+    && yum -y install gcc glibc-devel zlib-devel \
+    && export PATH=/work/graalvm-ce-java17-22.3.0/bin:$PATH \
+    && export JAVA_HOME=/work/graalvm-ce-java17-22.3.0 \
+    && gu install native-image \
+    && ./mvnw clean \
+    && ./mvnw package -Pnative
 
-# Use a Docker multi-stage build to create a lean production image.
-# https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-FROM alpine
-RUN apk add --no-cache ca-certificates
+#RUN ./mvnw clean
+#RUN ./mvnw package -Pnative
 
-# Copy the binary to the production image from the builder stage.
-COPY --from=builder /app/helloworld /helloworld
+#RUN chown 1001 /work \
+#    && chmod "g+rwX" /work \
+#    && chown 1001:root /work
+COPY target/*-runner /work/application
 
 EXPOSE $PORT
 
-# Run the web service on container startup.
-CMD ["/helloworld"]
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
