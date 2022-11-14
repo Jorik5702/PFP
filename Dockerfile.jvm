@@ -13,9 +13,12 @@ RUN yum -y install gcc \
     && export JAVA_HOME=/work/graalvm-ce-java17-22.3.0 \
     && gu install native-image \
     && ./mvnw clean \
-    && ./mvnw package -Pnative \
-    && mv target/pfp-service-runner application
+    && ./mvnw package -Puber \
+    && mv target/pfp-service-runner.jar application.jar
 
 EXPOSE $PORT
 
-CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+ENV PATH=/work/graalvm-ce-java17-22.3.0/bin:$PATH
+ENV export JAVA_HOME=/work/graalvm-ce-java17-22.3.0
+
+CMD ["java","-jar","application.jar", "-Dquarkus.http.host=0.0.0.0"]
