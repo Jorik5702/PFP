@@ -34,13 +34,13 @@ public class Load extends Simulation {
     {
         setUp(
                 scn.injectOpen(
-                                nothingFor(1),
-                                constantUsersPerSec(1).during(Duration.ofSeconds(20)),
-                                constantUsersPerSec(4).during(Duration.ofSeconds(20)),
-                                constantUsersPerSec(8).during(Duration.ofSeconds(20)),
-                                constantUsersPerSec(12).during(Duration.ofSeconds(20)),
-                                constantUsersPerSec(16).during(Duration.ofSeconds(20)),
-                                constantUsersPerSec(20).during(Duration.ofSeconds(20)),
+                                nothingFor(2),
+                                constantUsersPerSec(1).during(Duration.ofSeconds(60)),
+                                constantUsersPerSec(4).during(Duration.ofSeconds(60)),
+                                constantUsersPerSec(8).during(Duration.ofSeconds(60)),
+                                constantUsersPerSec(12).during(Duration.ofSeconds(60)),
+                                constantUsersPerSec(16).during(Duration.ofSeconds(60)),
+                                constantUsersPerSec(20).during(Duration.ofSeconds(60)),
                                 nothingFor(10)
                         )
                         .protocols(httpProtocol)

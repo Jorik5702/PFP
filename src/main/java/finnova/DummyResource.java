@@ -1,4 +1,4 @@
-package org.acme;
+package finnova;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
