@@ -11,8 +11,12 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String hello() {
+        double intermediate = 0.0;
+        for(int round = 0; round < 100; round++) {
+            intermediate += Math.sqrt(round);
+        }
         return "{" +
-                " \"Foo\":\"Bar\"" +
+                " \"Foo\":\""+Double.toHexString(intermediate)+"\""+
                 "}";
     }
 }
