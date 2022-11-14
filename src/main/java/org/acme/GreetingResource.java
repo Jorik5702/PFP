@@ -9,6 +9,10 @@ public class GreetingResource {
 
     private static final Logger LOG = Logger.getLogger(GreetingResource.class.getName());
 
+    static {
+        LOG.info("Start PFP demo service");
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String hello(
