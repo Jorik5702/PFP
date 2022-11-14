@@ -26,15 +26,18 @@ public class Load extends Simulation {
             scenario("Scenario Name")
                     .exec(http("request_1")
                             .get("/hello")
+                            .queryParam("rounds","1")
                     );
 
     {
         setUp(
                 scn.injectOpen(
-                        atOnceUsers(1),
-                        nothingFor(2),
-                        atOnceUsers(2)
-                        )
+                        nothingFor(1),
+                        rampUsers(10).during(20),
+                        constantUsersPerSec(10).during(20)
+//                        rampUsersPerSec(10).to(20).during(10)
+//                        stressPeakUsers(1000).during(20)
+                                                        )
                         .protocols(httpProtocol)
         );
     }

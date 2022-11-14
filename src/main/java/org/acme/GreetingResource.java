@@ -18,7 +18,7 @@ public class GreetingResource {
     public String hello(
             @DefaultValue ("100") @QueryParam("rounds") int maxRounds
     ) {
-        LOG.info("processin request with rounds="+maxRounds);
+        LOG.info("processing request with rounds="+maxRounds);
 
         double intermediate = 0.0;
         for(int round = 0; round < maxRounds; round++) {
