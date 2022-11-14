@@ -4,10 +4,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.logging.Logger;
 
-@Path("/hello")
-public class GreetingResource {
+@Path("/process")
+public class DummyResource {
 
-    private static final Logger LOG = Logger.getLogger(GreetingResource.class.getName());
+    private static final Logger LOG = Logger.getLogger(DummyResource.class.getName());
 
     static {
         LOG.info("Start PFP demo service");
@@ -25,10 +25,9 @@ public class GreetingResource {
             for(int inner = 0; inner < 1000000; inner++) {
                 intermediate += Math.sqrt(round+inner);
             }
-            intermediate += Math.sqrt(round);
         }
         return "{" +
-                " \"Foo\":\""+Double.toHexString(intermediate)+"\""+
+                " \"result\":\""+Double.toHexString(intermediate)+"\""+
                 "}";
     }
 }

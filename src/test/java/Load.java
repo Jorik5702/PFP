@@ -5,6 +5,7 @@ import io.gatling.javaapi.http.*;
 
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
+
 import java.time.Duration;
 
 public class Load extends Simulation {
@@ -15,6 +16,7 @@ public class Load extends Simulation {
         Gatling.fromMap(props.build());
 
     }
+
     HttpProtocolBuilder httpProtocol =
             http
                     .baseUrl("https://pfp-nivswhaqta-oa.a.run.app")
@@ -25,33 +27,22 @@ public class Load extends Simulation {
     ScenarioBuilder scn =
             scenario("Scenario Name")
                     .exec(http("request_1")
-                            .get("/hello")
-                            .queryParam("rounds","10")
+                            .get("/process")
+                            .queryParam("rounds", "10")
                     );
 
     {
         setUp(
                 scn.injectOpen(
-                        /*
-                        nothingFor(1),
-                        rampUsers(10).during(20),
-                        constantUsersPerSec(10).during(20)
-
-                         */
-                        nothingFor(1),
-//                        atOnceUsers(1),
-                        constantUsersPerSec(1).during(Duration.ofSeconds(20)),
-                        constantUsersPerSec(4).during(Duration.ofSeconds(20)),
-                        constantUsersPerSec(8).during(Duration.ofSeconds(20)),
-                        constantUsersPerSec(12).during(Duration.ofSeconds(20)),
-                        constantUsersPerSec(16).during(Duration.ofSeconds(20)),
-                        constantUsersPerSec(20).during(Duration.ofSeconds(20)),
-                        nothingFor(10)
-                        //constantConcurrentUsers(1).during(Duration.ofSeconds(30))
-                        //rampConcurrentUsers(1).to(10).during(Duration.ofSeconds(20))
-//                        rampUsersPerSec(10).to(20).during(10)
-//                        stressPeakUsers(1000).during(20)
-                                                        )
+                                nothingFor(1),
+                                constantUsersPerSec(1).during(Duration.ofSeconds(20)),
+                                constantUsersPerSec(4).during(Duration.ofSeconds(20)),
+                                constantUsersPerSec(8).during(Duration.ofSeconds(20)),
+                                constantUsersPerSec(12).during(Duration.ofSeconds(20)),
+                                constantUsersPerSec(16).during(Duration.ofSeconds(20)),
+                                constantUsersPerSec(20).during(Duration.ofSeconds(20)),
+                                nothingFor(10)
+                        )
                         .protocols(httpProtocol)
         );
     }
