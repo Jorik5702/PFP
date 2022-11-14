@@ -1,6 +1,8 @@
 graalvm-ce-java17-22.3.0
 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
 
+.idea
+
 #Maven
 target/
 pom.xml.tag
