@@ -15,7 +15,7 @@ public class DummyResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String hello(
+    public String process(
             @DefaultValue ("100") @QueryParam("rounds") int maxRounds
     ) {
         LOG.info("processing request with rounds="+maxRounds);
